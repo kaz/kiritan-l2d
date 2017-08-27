@@ -46,11 +46,11 @@ const makeDraggable = target => {
 
 const initCameraFrame = _ => {
 	const rect = document.body.getBoundingClientRect();
-	const size = Math.min(rect.width, rect.height) / 2;
+	const size = Math.min(rect.width, rect.height) / 1.8;
 	
 	frame.style.display = "block";
 	frame.style.width = frame.style.height = `${size}px`;
-	frame.style.top = `${size / 5 - 50}px`;
+	frame.style.top = `${(rect.height - size) / 2 - 50}px`;
 	frame.style.left = `${(rect.width - size) / 2 - 50}px`;
 	
 	return size;
@@ -85,11 +85,15 @@ const capture = async _ => {
 	dstCanv.width = dstCanv.height = 400;
 	
 	const ctx = dstCanv.getContext("2d");
+	ctx.fillStyle = "rgb(255, 255, 255)";
+	ctx.fillRect(0, 0, 400, 400);
 	ctx.drawImage(image, scale*sx, scale*sy, scale*sw, scale*sh, 0, 0, 400, 400);
+	
+	panel.innerHTML = "処理中……";
 	
 	const result = await submit(dstCanv.toDataURL());
 	if(result != "ok"){
-		return alert("failed...");
+		return alert("失敗");
 	}
 	
 	dstCanv.toBlob(blob => {

@@ -37,7 +37,7 @@ const initialize = async _ => {
 		s, 0, 0, 0,
 		0,-s, 0, 0,
 		0, 0, 1, 0,
-	   -1, 1, 0, 0.8,
+		-1, 1, 0, 0.8,
 	]);
 	
 	draw(gl, live2DModel);
